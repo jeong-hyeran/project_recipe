@@ -5,17 +5,26 @@
 <h3>단일 조회</h3>
 
 	<div id="boardTitle">
-			<a href="${cpath }/member/view/${dto.member_idx }"><img src="${cpath }/profile/${dto.member_fileName }" width="40"></a>
-			${dto.title }
+		<div>
+			<a href="${cpath }/member/view/${dto.member_idx }">
+				<img src="${cpath }/profile/${dto.member_fileName }">
+			</a>
+				<div>${dto.member_userid }</div>
+		</div>
+		<div>${dto.title }</div>
 	</div>
+
+	<div id="boardIngr">
+		<div>${dto.ingr }</div>
+	</div>
+
 	<div id="boardContent">
-	<c:forEach var="content" items="${contentList}" varStatus="status">
-	    <div>
-	        <img src="${cpath }/recipe/${fileNameList[status.index] }">  
-	    </div>
-	
-	    <div>${content }</div>
-	</c:forEach>
+		<c:forEach var="content" items="${contentList}" varStatus="status">
+			<div>
+				<img src="${cpath }/recipe/${fileNameList[status.index] }">
+			</div>
+			<div>${content }</div>
+		</c:forEach>
 	</div>
 </div>
 

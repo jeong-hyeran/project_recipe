@@ -22,6 +22,8 @@ public class BoardDTO {
 	private String title;
 	private List<String> contents;
 	private String content;
+	private List<String> ingrs;
+	private String ingr;
 	private String fileName;
 	private List<MultipartFile> upload;
 	private Date wdate;
@@ -32,85 +34,97 @@ public class BoardDTO {
 	private String member_userid;
 	private String member_username;
 	
-	public int getIdx() {
+	public final int getIdx() {
 		return idx;
 	}
-	public void setIdx(int idx) {
+	public final void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public int getMember_idx() {
+	public final int getMember_idx() {
 		return member_idx;
 	}
-	public void setMember_idx(int member_idx) {
+	public final void setMember_idx(int member_idx) {
 		this.member_idx = member_idx;
 	}
-	public String getTitle() {
+	public final String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public final void setTitle(String title) {
 		this.title = title;
 	}
-	public List<String> getContents() {
+	public final List<String> getContents() {
 		return contents;
 	}
-	public void setContents(List<String> contents) {
+	public final void setContents(List<String> contents) {
 		this.contents = contents;
 	}
-	public String getContent() {
+	public final String getContent() {
 		return content;
 	}
-	public void setContent(String content) {
+	public final void setContent(String content) {
 		this.content = content;
 	}
-	public String getFileName() {
+	public final List<String> getIngrs() {
+		return ingrs;
+	}
+	public final void setIngrs(List<String> ingrs) {
+		this.ingrs = ingrs;
+	}
+	public final String getIngr() {
+		return ingr;
+	}
+	public final void setIngr(String ingr) {
+		this.ingr = ingr;
+	}
+	public final String getFileName() {
 		return fileName;
 	}
-	public void setFileName(String fileName) {
+	public final void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public List<MultipartFile> getUpload() {
+	public final List<MultipartFile> getUpload() {
 		return upload;
 	}
-	public void setUpload(List<MultipartFile> upload) {
+	public final void setUpload(List<MultipartFile> upload) {
 		this.upload = upload;
 	}
-	public Date getWdate() {
+	public final Date getWdate() {
 		return wdate;
 	}
-	public void setWdate(Date wdate) {
+	public final void setWdate(Date wdate) {
 		this.wdate = wdate;
 	}
-	public int getViewCount() {
+	public final int getViewCount() {
 		return viewCount;
 	}
-	public void setViewCount(int viewCount) {
+	public final void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	public int getLikeCount() {
+	public final int getLikeCount() {
 		return likeCount;
 	}
-	public void setLikeCount(int likeCount) {
+	public final void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
-	public String getMember_userid() {
-		return member_userid;
-	}
-	public void setMember_userid(String member_userid) {
-		this.member_userid = member_userid;
-	}
-	public String getMember_username() {
-		return member_username;
-	}
-	public void setMember_username(String member_username) {
-		this.member_username = member_username;
-	}
-	public String getMember_fileName() {
+	public final String getMember_fileName() {
 		return member_fileName;
 	}
-	public void setMember_fileName(String member_fileName) {
+	
+	public final void setMember_fileName(String member_fileName) {
 		this.member_fileName = member_fileName;
 	}
-	
+	public final String getMember_userid() {
+		return member_userid;
+	}
+	public final void setMember_userid(String member_userid) {
+		this.member_userid = member_userid;
+	}
+	public final String getMember_username() {
+		return member_username;
+	}
+	public final void setMember_username(String member_username) {
+		this.member_username = member_username;
+	}
 	
 	
 
