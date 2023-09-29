@@ -22,7 +22,6 @@ public class BoardDTO {
 	private String title;
 	private List<String> contents;
 	private String content;
-	private List<String> ingrs;
 	private String ingr;
 	private String fileName;
 	private List<MultipartFile> upload;
@@ -63,12 +62,6 @@ public class BoardDTO {
 	}
 	public final void setContent(String content) {
 		this.content = content;
-	}
-	public final List<String> getIngrs() {
-		return ingrs;
-	}
-	public final void setIngrs(List<String> ingrs) {
-		this.ingrs = ingrs;
 	}
 	public final String getIngr() {
 		return ingr;

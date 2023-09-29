@@ -49,7 +49,7 @@
 	    	
 	<update id="boardUpdate" parameterType="board">
 		update board
-			set content=#{content}, ingr=#{ingr}, fileName=#{fileName}, title=#{title}
+			set content=#{content}, fileName=#{fileName}, title=#{title}
 			where idx=#{idx}
 	</update>
 	
@@ -74,11 +74,11 @@
 	    select 
 	        b.*,
 	        m.userid as member_userid
-	    from board b
-	    join member m
-	    on m.idx = b.member_idx
-	    where 
-	        <foreach collection="keywords" item="keyword" separator="and">
+		    from board b
+		    join member m
+		    on m.idx = b.member_idx
+		    where 
+	        <foreach collection="keywords" item="keyword" separator="and ">
 	        <!-- keywords의 배열을 반복하며 keyword를  'and'연산자로 합쳐준다. -->
 	            ingr like '%'|| #{keyword} || '%'
 	        </foreach>

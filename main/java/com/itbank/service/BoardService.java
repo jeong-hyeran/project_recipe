@@ -76,7 +76,7 @@ public class BoardService {
 		List<MultipartFile> uploadList = dto.getUpload();
 		List<String> contentList = dto.getContents();
 		
-		// cotent
+		// content
 		String content = "";
 		for(int i = 0; i < contentList.size(); i++) {
 			content += contentList.get(i);
@@ -91,7 +91,7 @@ public class BoardService {
 		// 원래 파일 이름을 가져오기 위해서 selectOne을 사용함
 		BoardDTO curr = boardDAO.selectOne(dto.getIdx());
 		String currentFile = curr.getFileName();
-		String[] arr = currentFile.split("\\|");
+		String[] arr = currentFile.split("|");
 		
 		System.out.println(currentFile);
 		
@@ -117,7 +117,7 @@ public class BoardService {
 
 	public int boardDelete(BoardDTO dto) {
 	      String fileName = dto.getFileName();
-	      String[] arr = fileName.split("\\|");
+	      String[] arr = fileName.split("|");
 	      for(int i = 0; i < arr.length; i++) {
 	         fileComponent.removeFile(arr[i]);
 	      }

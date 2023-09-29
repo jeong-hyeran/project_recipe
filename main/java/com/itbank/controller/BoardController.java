@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itbank.model.BoardDTO;
@@ -100,56 +99,39 @@ public class BoardController {
    // 검색 옵션 
    @PostMapping("/search")
    public ModelAndView search(String searchOption, String keyword){
-	   ModelAndView mav = new ModelAndView("board/searchList");
-	   List<BoardDTO> list = new ArrayList<BoardDTO>(); 
-	   // boardDTO를 담을 list선언
-	   if ("keyword".equals(searchOption)) {
-		   // searchOption의 값이 keyword(포함하는 검색)이면 
-		   list = boardService.search(keyword);
-		   // search 메서드 실행
-		   mav.addObject("keyword",keyword);
-		   // 포함하는 검색어를 mav에 담기
-	   } else if ("excludeKeyword".equals(searchOption)) {
-		   // searchOption의 값이 excludeKeyword(제외하는 검색)이면 
-		   list = boardService.excludeSearch(keyword);
-		   // excluedSearch 메서드 실행
-		   mav.addObject("excludeKeyword",keyword);
-		   // 제외하는 검색어를 mav에 담기
-	   }
-	   mav.addObject("searchOption",searchOption);
-	   // searchList.jsp if문으로 검색키워드 띄우기 위해 보내줌
-	   mav.addObject("list",list);
-	   return mav;
+      ModelAndView mav = new ModelAndView("board/searchList");
+      List<BoardDTO> list = new ArrayList<BoardDTO>(); 
+      // boardDTO를 담을 list선언
+      if ("keyword".equals(searchOption)) {
+         // searchOption의 값이 keyword(포함하는 검색)이면 
+         list = boardService.search(keyword);
+         // search 메서드 실행
+         mav.addObject("keyword",keyword);
+         // 포함하는 검색어를 mav에 담기
+      } else if ("excludeKeyword".equals(searchOption)) {
+         // searchOption의 값이 excludeKeyword(제외하는 검색)이면 
+         list = boardService.excludeSearch(keyword);
+         // excluedSearch 메서드 실행
+         mav.addObject("excludeKeyword",keyword);
+         // 제외하는 검색어를 mav에 담기
+      }
+      mav.addObject("searchOption",searchOption);
+      mav.addObject("list",list);
+      return mav;
    }
    
-//   // 여러개 검색 옵션 
-//   @PostMapping("/search")
-//   public ModelAndView search(@RequestParam("searchOption")String searchOption, @RequestParam("keyword")String keyword){
-//	   ModelAndView mav = new ModelAndView("board/searchList");
-//	   List<BoardDTO> list = new ArrayList<BoardDTO>(); 
-//	   if ("keyword".equals(searchOption)) {
-//		   list = boardService.searches(keyword);
-//		   mav.addObject("keyword",keyword);
-//	   } else if ("excludeKeyword".equals(searchOption)) {
-//		   list = boardService.excludeSearch(keyword);
-//		   mav.addObject("excludeKeyword",keyword);
-//	   }
-//	   mav.addObject("searchOption",searchOption);
-//	   mav.addObject("list",list);
-//	   return mav;
-//   }
-   
 
-	// 포함한 검색 한 이후 제외할 검색어가 있을때
-	@PostMapping("/searchList")
-	public ModelAndView excludeSearch(String keyword, String excludeKeyword) {
-		ModelAndView mav = new ModelAndView("board/searchList");
-		List<BoardDTO> list = boardService.excludeSearchUP(keyword, excludeKeyword);
-		// 쿼리문 실행
-		System.out.println("포함 : "+ keyword + ", 제외 : " + excludeKeyword);
-		mav.addObject("list",list);
-		mav.addObject("excludeKeyword",excludeKeyword);
-		mav.addObject("keyword",keyword);
-		return mav;
-	}
+   // 포함한 검색 리스트에서 제외할 검색어가 있을때
+   @PostMapping("/searchList")
+   public ModelAndView excludeSearch(String keyword, String excludeKeyword) {
+     ModelAndView mav = new ModelAndView("board/searchList");
+     List<BoardDTO> list = boardService.excludeSearchUP(keyword, excludeKeyword);
+     // 쿼리문 실행
+     System.out.println("포함 : "+ keyword + ", 제외 : " + excludeKeyword);
+     mav.addObject("list",list);
+     mav.addObject("excludeKeyword",excludeKeyword);
+     mav.addObject("keyword",keyword);
+     return mav;
+   }
+   
 }
