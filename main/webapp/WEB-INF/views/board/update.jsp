@@ -4,22 +4,17 @@
 
 <div id="boardUpdate">
 	<form method="POST" enctype="multipart/form-data">
-		<div id="boardTitle">${dto.title }</div>
+		<div id="boardTitle"><input type="text" name="title" value="${dto.title }"></div>
 		<div id="boardUserid">${dto.member_userid }</div>
-		<div id="boardIngredient">
-			<input type="text" name="ingr" value="${dto.ingr}">
-		</div>
 		<div id="boardContent">
-			<c:forEach var="content" items="${contentList}" varStatus="status">
-				<div>
-					<img src="${cpath }/recipe/${fileNameList[status.index] }"> <input
-						type="file" name="upload[${status.index }]">
-				</div>
-
-				<div>
-					<textarea name="content[${status.index }]" cols="50" rows="10">${content }</textarea>
-				</div>
-			</c:forEach>
+		<c:forEach var="content" items="${contentList}" varStatus="status">
+		    <div>
+		        <img src="${cpath }/recipe/${fileNameList[status.index] }">  
+		        <input type="file" name="upload[${status.index }]">
+		    </div>
+		
+		    <div><textarea name="contents[${status.index }]" cols="50" rows="10">${content }</textarea></div>
+		</c:forEach>
 		</div>
 		<p>
 			<input id="addBtn" type="button" value="파일 추가">
@@ -27,7 +22,6 @@
 		</p>
 	</form>
 </div>
-
 
 <script>
 	function renameHandler() {
@@ -95,7 +89,5 @@
 
 	addBtn.onclick = addHandler
 </script>
-</body>
-</html>
 </body>
 </html>
