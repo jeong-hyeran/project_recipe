@@ -9,6 +9,7 @@
 
 <form method="POST" enctype="multipart/form-data">
 	<p><input type="text" name="title" placeholder="제목을 입력하세요" required autofocus></p>
+	<p><input type="text" name="ingr" placeholder="재료을 입력하세요" required></p>
 	<div id="contents">
 		<div id="files">
 			<p>	
@@ -60,6 +61,8 @@
 		const p = document.createElement('p')
 		const p1 = document.createElement('p')
 		
+		const br = document.createElement('br')
+
 		const input_file = document.createElement('input')
 		input_file.type = 'file'
 		input_file.name = 'upload'

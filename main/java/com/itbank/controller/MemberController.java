@@ -38,16 +38,22 @@ public class MemberController {
 	public void login() {}
 	
 	@PostMapping("/login")
-	public String login(MemberDTO dto,HttpSession session) {
+	public ModelAndView login(MemberDTO dto, HttpSession session) {
+		ModelAndView mav = new ModelAndView("msg");
 		MemberDTO login = memberService.selectOneById(dto);
-		session.setAttribute("login", login);
-		return "redirect:/";
+		if (login != null) {
+			session.setAttribute("login", login);
+			mav.setViewName("redirect:/");
+			return mav;
+		}
+		mav.addObject("msg", "일치하는 회원 정보가 없습니다.");
+		return mav;
 	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return"redirect:/";
+		return"redirect:/member/login";
 	}
 	
 	@GetMapping("/mypage")

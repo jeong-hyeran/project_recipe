@@ -35,7 +35,7 @@
 			<td>${dto.wdate }</td>
 			<td>${dto.viewCount }</td>
 			<td><a href="${cpath }/board/update/${dto.idx}">수정</a></td>
-			<td><a href="${cpath }/board/delete/${dto.idx}"><span id="removeBtn">x</span></a></td>
+			<td><a href="${cpath }/board/boardDelete/${dto.idx}"><button id="removeBtn">x</button></a></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -60,7 +60,7 @@
 	});
 
 	deleteBtn.addEventListener('click', function(event) {
-	  const flag = confirm('정말 삭제하시겠습니까?');
+	  const flag = confirm('정말 탈퇴하시겠습니까?');
 	  if (!flag) {
 	    event.preventDefault(); // 취소를 선택한 경우에만 기본 동작 취소
 	  }
