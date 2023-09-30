@@ -12,7 +12,7 @@ public class ReviewDTO {
 	private String re_content;
 	private Date re_wdate;
 	// 추후에 사용
-	private String re_likeConun;
+	private String re_likeConunt;
 	private String re_fileName;
 	private MultipartFile re_upload;
 	
@@ -49,11 +49,11 @@ public class ReviewDTO {
 	public final void setRe_wdate(Date re_wdate) {
 		this.re_wdate = re_wdate;
 	}
-	public final String getRe_likeConun() {
-		return re_likeConun;
+	public final String getRe_likeConunt() {
+		return re_likeConunt;
 	}
-	public final void setRe_likeConun(String re_likeConun) {
-		this.re_likeConun = re_likeConun;
+	public final void setRe_likeConunt(String re_likeConunt) {
+		this.re_likeConunt = re_likeConunt;
 	}
 	public final String getRe_fileName() {
 		return re_fileName;

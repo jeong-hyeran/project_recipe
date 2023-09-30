@@ -36,7 +36,6 @@
 		margin: 10px 5px;
 	}
 	#boardView{
-	border:1px dashed red;
 		margin: auto;
 		width:1000px;
 		padding: 20px;

@@ -32,7 +32,7 @@
 	</div>
 	<c:if test="${not empty login }">
 		<div id="reviewWrite">
-			<form method="POST">
+			<form method="POST" action="${cpath }/board/review/write">
 			<p>
 				<input type="hidden" name="board_idx" value="${dto.idx }">
 				<input type="text" name="re_content" placeholder="댓글을 적어주세요">

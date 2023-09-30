@@ -19,12 +19,14 @@ import com.itbank.model.ReviewDTO;
 import com.itbank.service.BoardService;
 import com.itbank.service.ReviewService;
 
+
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
 	@Autowired private BoardService boardService;
 	@Autowired private ReviewService reviewService;
+	
 	
 	@GetMapping("/write")
 	public void write() {}
@@ -139,17 +141,7 @@ public class BoardController {
      return mav;
    }
    
-   //review 작성
-   @PostMapping("/view/{idx}")
-   public ModelAndView review(HttpSession session,ReviewDTO dto) {
-	   ModelAndView mav = new ModelAndView("redirect:/board/view/" + dto.getBoard_idx());
-	   MemberDTO login = (MemberDTO)session.getAttribute("login");
-	   dto.setMember_idx(login.getIdx());
-	   int row = reviewService.reviewWrite(dto);
-	   System.out.println(row + "행이 등록 되었습니다.");
-	   return mav;
-   }
-   
+
 }
 
 
