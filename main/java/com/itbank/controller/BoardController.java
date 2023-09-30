@@ -15,13 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itbank.model.BoardDTO;
 import com.itbank.model.MemberDTO;
+import com.itbank.model.ReviewDTO;
 import com.itbank.service.BoardService;
+import com.itbank.service.ReviewService;
+
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
 	@Autowired private BoardService boardService;
+	@Autowired private ReviewService reviewService;
+	
 	
 	@GetMapping("/write")
 	public void write() {}
@@ -52,7 +57,9 @@ public class BoardController {
 		
 		List<String> contentList = boardService.getContentList(dto);
 		List<String> fileNameList = boardService.getFileNameList(dto);
-		
+		List<ReviewDTO> re_list = reviewService.reviewSelectAll(idx);
+	   
+		mav.addObject("re_list",re_list);
 		mav.addObject("dto",dto);
 		mav.addObject("contentList",contentList);
 		mav.addObject("fileNameList",fileNameList);
@@ -134,4 +141,27 @@ public class BoardController {
      return mav;
    }
    
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

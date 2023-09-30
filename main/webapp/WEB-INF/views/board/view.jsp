@@ -3,7 +3,11 @@
 <%@ include file="../header.jsp" %>
 <div id="boardView">
 <h3>단일 조회</h3>
-
+<p>
+	<a href="${cpath }/board/list"><button>글 목록</button></a>
+	<a href="${cpath }/board/update/${dto.idx }"><button id="updateBtn">수정</button></a>
+	<a href="${cpath }/board/delete/${dto.idx }"><button id="deleteBtn">삭제</button></a>
+</p>
 	<div id="boardTitle">
 		<div>
 			<a href="${cpath }/member/view/${dto.member_idx }">
@@ -26,13 +30,37 @@
 			<div>${content }</div>
 		</c:forEach>
 	</div>
-</div>
+	<c:if test="${not empty login }">
+		<div id="reviewWrite">
+			<form method="POST" action="${cpath }/board/review/write">
+			<p>
+				<input type="hidden" name="board_idx" value="${dto.idx }">
+				<input type="text" name="re_content" placeholder="댓글을 적어주세요">
+				<input type="submit" value="작성완료"><br>
+			</p>		
+			</form>
+		</div>
+	</c:if>
+	<c:if test="${empty login }">
+	로그인 후 댓글 작성 가능합니다.
+	</c:if>
+	<c:forEach var="re_dto" items="${re_list }">
+		<section id="review">
+			<div class="flex">
+				<div id="re_write">${re_dto.member_userid}</div>
+				<div id="re_content">${re_dto.re_content }</div>
+			</div>
+			<c:if test="${login.userid eq re_dto.member_userid }">
+				<div id="review_up">
+					<a href="${cpath }/review/update">수정</a> 
+					<a href="${cpath }/review/delete">삭제</a>
+				</div>
+			</c:if>
+		</section>
+	</c:forEach>
+</div><!-- boardView of end -->
 
-<p>
-	<a href="${cpath }/board/list"><button>글 목록</button></a>
-	<a href="${cpath }/board/update/${dto.idx }"><button id="updateBtn">수정</button></a>
-	<a href="${cpath }/board/delete/${dto.idx }"><button id="deleteBtn">삭제</button></a>
-</p>
+
 
 <script>
 	const updateBtn = document.getElementById('updateBtn')
