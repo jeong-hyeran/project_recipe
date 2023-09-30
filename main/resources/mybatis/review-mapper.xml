@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0/EN"
+		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.repository.ReviewDAO">
+	
+	<insert id="reviewWrite" parameterType="review">
+		insert into review(
+			member_idx,
+			board_idx,
+			re_content
+		)values(
+			#{member_idx},
+			#{board_idx},
+			#{re_content}
+		)
+	</insert>
+
+	<select id="reviewSelectAll" parameterType="int" resultType="review">
+		select
+		    r.*,m.userid as member_userid 
+		   	 	from review r
+				    join member m
+				    	on r.member_idx = m.idx
+				    join board b
+				    	on b.idx = r.board_idx
+				    where b.idx =#{idx}
+				    order by r.idx desc
+	</select>
+
+</mapper>

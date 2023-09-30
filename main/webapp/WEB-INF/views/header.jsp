@@ -14,6 +14,9 @@
 		width: 1200px;
 		margin: auto;
 	}
+	.flex{
+		display: flex;
+	}
 	table{
 		border : 2px solid black;
 		border-collapse: collapse;
@@ -33,14 +36,17 @@
 		margin: 10px 5px;
 	}
 	#boardView{
+	border:1px dashed red;
 		margin: auto;
+		width:1000px;
+		padding: 20px;
 	}
 	#boardIngr {
 		box-sizing:border-box;
 		border: 1px solid #eee;
 		width: 800px;
 		padding: 5px;
-		margin: 5px;
+		margin: 5px auto;
 		text-align: center;
 	}
 
@@ -50,7 +56,7 @@
 		width: 800px;
 		padding: 10px 20px;
 		height:80px;
-		margin: 5px;
+		margin: 5px auto;
 		text-align: center;
 		display: flex;
 	}
@@ -64,6 +70,7 @@
  	#boardTitle > div{ 
  		margin: auto; 
 		padding: 0; 
+
  	} 
  	#boardTitle > div:first-child{
  		margin-right:2px; 
@@ -81,18 +88,52 @@
 		border-radius:50%;
 		width: 40px;
 	}
-
 	#boardContent {
 		box-sizing:border-box;
 		border: 1px solid #eee;
 		width: 800px;
 		padding: 15px;
 		line-height: 2rem;
-		margin: 5px;
+		margin: 5px auto;
 		text-align: center;
 	}
 	#boardContent > div > img{
 		width: 400px;
+	}
+	#reviewWrite input[type="text"]{
+		width: 710px;
+		height: 80px;
+		margin-right: 1px;
+		border: 1px solid #eee;
+	}
+	#reviewWrite input[type="submit"]{
+		height: 85px;
+	}
+	#reviewWrite a{
+		font-size: 0.7rem;
+	}
+	#reviewWrite{
+		width: 800px;
+		margin:auto;
+		box-sizing:border-box;
+		padding: 0 3px;
+	}
+	#re_content{
+		font-size: 1.2rem;
+		padding-left: 5px;
+	}
+	#review{
+		width: 800px;
+		margin: auto;
+		margin-top:10px;
+		box-sizing:border-box;
+		padding: 10px;
+		border: 1px solid #eee;
+	}
+	#review_up{
+		text-align: right;
+		font-sixe:0.8rem;
+		color : #dadada;
 	}
 	ul{
 		list-style: none;
@@ -140,6 +181,7 @@
 	.boardList > table > tbody > tr >  td:first-child{
 		text-align: center;
 	}
+
 </style>
 </head>
 <body>

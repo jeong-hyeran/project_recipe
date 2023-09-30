@@ -15,13 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itbank.model.BoardDTO;
 import com.itbank.model.MemberDTO;
+import com.itbank.model.ReviewDTO;
 import com.itbank.service.BoardService;
+import com.itbank.service.ReviewService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
 	@Autowired private BoardService boardService;
+	@Autowired private ReviewService reviewService;
 	
 	@GetMapping("/write")
 	public void write() {}
@@ -52,7 +55,9 @@ public class BoardController {
 		
 		List<String> contentList = boardService.getContentList(dto);
 		List<String> fileNameList = boardService.getFileNameList(dto);
-		
+		List<ReviewDTO> re_list = reviewService.reviewSelectAll(idx);
+	   
+		mav.addObject("re_list",re_list);
 		mav.addObject("dto",dto);
 		mav.addObject("contentList",contentList);
 		mav.addObject("fileNameList",fileNameList);
@@ -134,4 +139,37 @@ public class BoardController {
      return mav;
    }
    
+   //review 작성
+   @PostMapping("/view/{idx}")
+   public ModelAndView review(HttpSession session,ReviewDTO dto) {
+	   ModelAndView mav = new ModelAndView("redirect:/board/view/" + dto.getBoard_idx());
+	   MemberDTO login = (MemberDTO)session.getAttribute("login");
+	   dto.setMember_idx(login.getIdx());
+	   int row = reviewService.reviewWrite(dto);
+	   System.out.println(row + "행이 등록 되었습니다.");
+	   return mav;
+   }
+   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
