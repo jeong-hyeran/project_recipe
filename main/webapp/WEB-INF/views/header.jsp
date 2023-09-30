@@ -181,6 +181,9 @@
 		text-align: center;
 	}
 
+	.heart-icon {
+		color: red; 
+	}
 </style>
 </head>
 <body>

@@ -28,6 +28,7 @@ public class BoardDTO {
 	private Date wdate;
 	private int viewCount;
 	private int likeCount;
+	private String like_status;
 	
 	private String member_fileName;
 	private String member_userid;
@@ -117,6 +118,12 @@ public class BoardDTO {
 	}
 	public final void setMember_username(String member_username) {
 		this.member_username = member_username;
+	}
+	public String getLike_status() {
+		return like_status;
+	}
+	public void setLike_status(String like_status) {
+		this.like_status = like_status;
 	}
 	
 	

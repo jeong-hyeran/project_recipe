@@ -2,6 +2,7 @@ package com.itbank.repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +33,18 @@ public interface BoardDAO {
 
 	List<BoardDTO> searches(String searchKeyword);
 
+	void boardLike(int idx);
+
+	void boardHate(int idx);
+
+	void like(int idx);
+
+	void likeStatusUpdate(Map<String, Object> map);
+
+	void dislike(int idx);
+
+	
+	
 
 
 
