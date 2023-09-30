@@ -1,7 +1,9 @@
 package com.itbank.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -80,7 +82,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/update/{idx}")
-	public ModelAndView update(@PathVariable("idx") int idx, BoardDTO dto) {
+	public ModelAndView update(BoardDTO dto) {
 		ModelAndView mav = new ModelAndView("redirect:/board/view/{idx}");
 		int row = boardService.boardUpdate(dto);
 		System.out.println(row + "행이 업데이트 되었습니다");
@@ -141,8 +143,37 @@ public class BoardController {
      return mav;
    }
    
-
+//   @PostMapping("/like/{idx}/{like_status}")
+//   public ResponseEntity<String> like(@PathVariable("idx") int idx, @PathVariable("like_status") String likeStatus) {
+//       Map<String, Object> map = new HashMap<>();
+//       map.put("idx", idx);
+//       map.put("like_status", likeStatus);
+//       boardService.likeStatusUpdate(map);
+//       // 업데이트된 좋아요 상태를 반환
+//       return ResponseEntity.ok(likeStatus);
+//   }
+   
+   @GetMapping("like/{idx}/{like_status}")
+   public String like(@PathVariable("idx")int idx, @PathVariable("like_status")String like_status) {
+	   Map<String, Object> map = new HashMap<>();
+	   map.put("idx", idx);
+	   map.put("like_status", like_status);
+	   boardService.like(idx); 
+	   boardService.likeStatusUpdate(map);
+	   return "redirect:/board/list";
+   }
+   
+   @GetMapping("dislike/{idx}/{like_status}")
+   public String dislike(@PathVariable("idx")int idx, @PathVariable("like_status")String like_status) {
+	   Map<String, Object> map = new HashMap<>();
+	   map.put("idx", idx);
+	   map.put("like_status", like_status);
+	   boardService.dislike(idx); 
+	   boardService.likeStatusUpdate(map);
+	   return "redirect:/board/list";
+   }
 }
+
 
 
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,14 +61,14 @@ public class BoardService {
 	
 	// 내용을 | 기준으로 잘라서 배열로 만든 뒤 리스트로 반환해주는 메서드
 	public List<String> getContentList(BoardDTO dto) {
-	    String[] content = dto.getContent().split("\\|"); // |를 ,로 복원
+	    String[] content = dto.getContent().split("\\|"); 
 	    List<String> contentList = Arrays.asList(content);
 	    return contentList;
 	}
 
 	// 파일 이름을 | 기준으로 잘라서 배열로 만든 뒤 리스트로 반환해주는 메서드
 	public List<String> getFileNameList(BoardDTO dto) {
-	    String[] fileName = dto.getFileName().split("\\|"); // |를 ,로 복원
+	    String[] fileName = dto.getFileName().split("\\|"); 
 	    List<String> fileNameList = Arrays.asList(fileName);
 	    return fileNameList;
 	}
@@ -91,9 +92,11 @@ public class BoardService {
 		// 원래 파일 이름을 가져오기 위해서 selectOne을 사용함
 		BoardDTO curr = boardDAO.selectOne(dto.getIdx());
 		String currentFile = curr.getFileName();
-		String[] arr = currentFile.split("|");
-		
 		System.out.println(currentFile);
+		System.out.println();
+		
+		String[] arr = currentFile.split("\\|");
+		
 		
 		for(int i = 0; i < uploadList.size(); i++) {
 			if(uploadList.get(i).getSize() == 0) {
@@ -109,15 +112,13 @@ public class BoardService {
 		}
 		dto.setContent(content);
 		dto.setFileName(fileName);
-		System.out.println(fileName);
-		System.out.println();
 		
 		return boardDAO.boardUpdate(dto);
 	}
 
 	public int boardDelete(BoardDTO dto) {
 	      String fileName = dto.getFileName();
-	      String[] arr = fileName.split("|");
+	      String[] arr = fileName.split("\\|");
 	      for(int i = 0; i < arr.length; i++) {
 	         fileComponent.removeFile(arr[i]);
 	      }
@@ -164,6 +165,20 @@ public class BoardService {
 		return list;
 	}
 
-	
+	public void like(int idx) {
+		boardDAO.like(idx);
+	}
+
+	public void likeStatusUpdate(Map<String, Object> map) {
+		boardDAO.likeStatusUpdate(map);
+	}
+
+	public void dislike(int idx) {
+		boardDAO.dislike(idx);
+	}
+
+
+ 
+  
 	
 }

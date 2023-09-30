@@ -119,4 +119,19 @@
 			set viewCount = viewCount + 1 where idx = #{idx}
 	</update>
 	
+	<update id="like" parameterType="int">
+		update board
+			set likeCount = likeCount+1 where idx=#{idx}
+	</update>
+	
+	<update id="likeStatusUpdate" parameterType="Map">
+		update board
+			set like_status = #{like_status} where idx=#{idx}
+	</update>
+	
+	<update id="dislike" parameterType="int">
+		update board
+			set likeCount = likeCount-1 where idx=#{idx}
+	</update>
+
 </mapper>
