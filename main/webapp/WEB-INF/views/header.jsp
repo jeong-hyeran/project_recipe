@@ -83,9 +83,11 @@
 		font-size: 0.5rem;
 	}
 
-	#boardTitle > div > a > img{
+	.profileImg{
 		border-radius:50%;
-		width: 40px;
+		width: 35px;
+		text-align: center;
+		font-size: 0.8rem;
 	}
 	#boardContent {
 		box-sizing:border-box;
@@ -192,11 +194,17 @@
 		all:unset;
 	}
 	.re_update:not([readonly]) {
-    background-color: #fff;
-    color: #333;
-    border: 1px solid #ccc; 
-    cursor: auto;
-}
+	    background-color: #fff;
+	    color: #333;
+	    border: 1px solid #ccc; 
+	    cursor: auto;
+	}
+	#review_input{
+		box-sizing: border-box;
+	    width: 800px;
+	    padding: 0;
+	    margin: 5px auto;
+	}
 </style>
 </head>
 <body>

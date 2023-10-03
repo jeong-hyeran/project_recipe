@@ -17,6 +17,7 @@ public class ReviewDTO {
 	private MultipartFile re_upload;
 	
 	private String member_userid;
+	private String member_fileName;
 	
 
 	public final int getIdx() {
@@ -72,6 +73,12 @@ public class ReviewDTO {
 	}
 	public final void setMember_userid(String member_userid) {
 		this.member_userid = member_userid;
+	}
+	public final String getMember_fileName() {
+		return member_fileName;
+	}
+	public final void setMember_fileName(String member_fileName) {
+		this.member_fileName = member_fileName;
 	}
 	
 }

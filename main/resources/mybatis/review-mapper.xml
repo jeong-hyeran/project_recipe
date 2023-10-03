@@ -19,7 +19,8 @@
 
 	<select id="reviewSelectAll" parameterType="int" resultType="review">
 		select
-		    r.*,m.userid as member_userid 
+		    r.*,m.userid as member_userid ,
+		    m.fileName as member_fileName
 		from review r
 	    join member m
     	on r.member_idx = m.idx

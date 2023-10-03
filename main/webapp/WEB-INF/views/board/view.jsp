@@ -12,7 +12,7 @@
 	<div id="boardTitle">
 		<div>
 			<a href="${cpath }/member/view/${dto.member_idx }">
-				<img src="${cpath }/profile/${dto.member_fileName }">
+				<img class="profileImg" src="${cpath }/profile/${dto.member_fileName }">
 			</a>
 				<div>${dto.member_userid }</div>
 		</div>
@@ -31,24 +31,33 @@
 			<div>${content }</div>
 		</c:forEach>
 	</div>
-	<c:if test="${not empty login }">
-		<div id="reviewWrite">
-			<form method="POST" action="${cpath }/board/review/write/${dto.idx}">
-				<p>
-					<input type="text" name="re_content" placeholder="댓글을 적어주세요">
-					<input type="submit" value="작성완료"><br>
-				</p>		
-			</form>
-		</div>
-	</c:if>
-	<c:if test="${empty login }">
-	로그인 후 댓글 작성 가능합니다.
-	</c:if>
+	<div id="review_input">
+		<c:if test="${not empty login }">
+			<div id="reviewWrite">
+				<form method="POST" action="${cpath }/board/review/write/${dto.idx}">
+					<p>
+						<input type="text" name="re_content" placeholder="댓글을 적어주세요">
+						<input type="submit" value="작성완료"><br>
+					</p>		
+				</form>
+			</div>
+		</c:if>
+		<c:if test="${empty login }">
+			<div style="font-weight: bold; padding:10px 5px;">
+				로그인 후 댓글 작성 가능합니다.
+			</div>
+		</c:if>
+	</div>
 	<c:forEach var="re_dto" items="${re_list }">
 		<section id="review">
 			<form>
 			<div class="flex">
-				<div id="re_write">${re_dto.member_userid}</div>
+	<div>
+			<a href="${cpath }/member/view/${re_dto.member_idx }">
+				<img class="profileImg" src="${cpath }/profile/${re_dto.member_fileName }">
+			</a>
+				<div>${re_dto.member_userid }</div>
+		</div>
 				<input class="re_update" id="re_content_${re_dto.idx}" type="text" value="${re_dto.re_content }" readonly>
 				 <input type="button" value="수정완료" style="display: none;" id="updateBtn_${re_dto.idx}" onclick="update('${re_dto.idx}')">
 			</div>
@@ -70,7 +79,7 @@ function modify(seq) {
 	const contentInput = 're_content_'+seq;
     // input의 속성 readonly를 없애는 작업
 	document.getElementById(contentInput).readOnly = false;
-    // 수정완료 버튼을 보이게 하기($() 함수 내에 선택자를 전달하여 요소를 선택, #는 선택자 id 선택)
+    // 수정완료 버튼을 보이게 하기($() 함수 내에 선택자를 전달하여 요소를 선택, #는 선택자 id 선택자)
     $('#updateBtn_'+seq).show();
 }
 	// 수정완료키를 누르면 실행되는 함수
