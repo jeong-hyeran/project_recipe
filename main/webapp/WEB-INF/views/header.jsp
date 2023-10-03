@@ -184,6 +184,19 @@
 	.heart-icon {
 		color: red; 
 	}
+	
+	.re_update[type="text"]{
+		margin-left: 5px;
+	}
+	.re_update{
+		all:unset;
+	}
+	.re_update:not([readonly]) {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc; 
+    cursor: auto;
+}
 </style>
 </head>
 <body>
@@ -212,7 +225,7 @@
 				<!-- 드랍 메뉴 구현 할 수도? -->
 			</c:if>
 				<li><a href="${cpath }/board/list">레시피</a></li>
-				<li><a href="${cpath }/review/list">댓글(구현 후 삭제)</a></li>
+				<li><a href="${cpath }/board/review/wrte">댓글(구현 후 삭제)</a></li>
 		</ul>
 	</nav>
 </header>

@@ -26,9 +26,9 @@ import com.itbank.service.ReviewService;
 @RequestMapping("/board")
 public class BoardController {
 
-	@Autowired private BoardService boardService;
+
 	@Autowired private ReviewService reviewService;
-	
+	@Autowired private BoardService boardService;
 	
 	@GetMapping("/write")
 	public void write() {}
