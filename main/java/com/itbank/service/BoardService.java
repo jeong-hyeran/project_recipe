@@ -165,18 +165,6 @@ public class BoardService {
 		return list;
 	}
 
-//	public void like(int idx) {
-//		boardDAO.like(idx);
-//	}
-//
-//	public void likeStatusUpdate(Map<String, Object> map) {
-//		boardDAO.likeStatusUpdate(map);
-//	}
-//
-//	public void dislike(int idx) {
-//		boardDAO.dislike(idx);
-//	}
-
 	public BoardLikeDTO selectBoardLike(BoardLikeDTO dto) {
 		return boardDAO.selectBoardLike(dto);
 	}

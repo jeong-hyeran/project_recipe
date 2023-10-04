@@ -76,7 +76,6 @@
 </div><!-- boardView of end -->
 
 
-
 <script>
 	const updateBtn = document.getElementById('updateBtn')
 	const deleteBtn = document.getElementById('deleteBtn')
@@ -101,33 +100,6 @@
 	deleteBtn.addEventListener('click', Handler)
 	
 
-	
-// 	const links = document.querySelectorAll('.switch');
-	
-// 	links.forEach(function(link) {
-// 	  link.addEventListener('click', function(event) {
-// 	    event.preventDefault();
-	
-// 	    // 클릭 이벤트가 발생한 링크에서 idx와 like_status를 가져옵니다.
-// 	    const href = link.getAttribute('href');
-// 	    const parts = href.split('/');
-// 	    let idx = parts[4];
-// 	    const span = link.querySelector('span');
-	
-// 	    // like_status 변경
-// 	    let like_status = parts[5]; // 혹은 직접 변수에 할당하는 방식으로 가져올 수 있음
-// 	    like_status = like_status === 'like' ? 'dislike' : 'like';
-// 	    console.log(like_status)
-	    
-	    
-// 	    if (like_status === 'like') {
-// 	      location.href = '${cpath}/board/like/' + idx + '/' +  like_status;
-// 	    } else {
-// 	      location.href = '${cpath}/board/dislike/' + idx + '/' + like_status;
-// 	    }
-// 	  });
-// 	});
-	
 </script>
 
 
