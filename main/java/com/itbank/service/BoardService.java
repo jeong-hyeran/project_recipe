@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itbank.component.BoardFileComponent;
 import com.itbank.model.BoardDTO;
+import com.itbank.model.BoardLikeDTO;
 import com.itbank.repository.BoardDAO;
 
 @Service
@@ -164,21 +165,30 @@ public class BoardService {
 		
 		return list;
 	}
-
-	public void like(int idx) {
-		boardDAO.like(idx);
+	public BoardLikeDTO selectBoardLike(BoardLikeDTO dto) {
+		return boardDAO.selectBoardLike(dto);
 	}
-
-	public void likeStatusUpdate(Map<String, Object> map) {
-		boardDAO.likeStatusUpdate(map);
-	}
-
-	public void dislike(int idx) {
-		boardDAO.dislike(idx);
+	public int insertLike(BoardLikeDTO dto) {
+		return boardDAO.insertBoardLike(dto);
 	}
 
 
- 
+	public BoardLikeDTO selectboardLikeByIdx(int idx) {
+		return boardDAO.selectboardLikeByIdx(idx);
+	}
+
+	public int updateLikeStatus(BoardLikeDTO dto) {
+		return boardDAO.updateLikeStatus(dto);
+	}
+
+	public int updateLikeCountUp(int idx) {
+		return boardDAO.updateLikeCountUp(idx);
+	}
+
+	public int updateLikeCountDown(int idx) {
+		return boardDAO.updateLikeCountDown(idx);
+	}
+
   
 	
 }

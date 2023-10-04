@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.itbank.model.BoardDTO;
+import com.itbank.model.BoardLikeDTO;
 
 @Repository
 public interface BoardDAO {
@@ -43,8 +44,19 @@ public interface BoardDAO {
 
 	void dislike(int idx);
 
-	
-	
+
+	BoardLikeDTO selectBoardLike(BoardLikeDTO dto);
+
+	int insertBoardLike(BoardLikeDTO dto);
+
+	BoardLikeDTO selectboardLikeByIdx(int idx);
+
+	int updateLikeStatus(BoardLikeDTO dto);
+
+	int updateLikeCountUp(int idx);
+
+	int updateLikeCountDown(int idx);
+
 
 
 

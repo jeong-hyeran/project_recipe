@@ -32,11 +32,25 @@
 		</c:forEach>
 	</div>
 	<div id="review_input">
+	
+	
 		<c:if test="${not empty login }">
 			<div id="reviewWrite">
 				<form method="POST" action="${cpath }/board/review/write/${dto.idx}">
 					<p>
-						<input type="text" name="re_content" placeholder="댓글을 적어주세요">
+						<a href="${cpath }/board/like/${dto.idx}/${login.userid}">
+							<span class="heart-icon">
+							<c:if test="${like_status == 'false' or empty like_status}">
+								&#x2661;								<!-- 빨간색 빈 하트 : &#x2661;(U+2661) -->
+							</c:if>
+							<c:if test="${like_status == 'true' }">
+								&#x2764;				
+							</c:if>
+							</span>${dto.likeCount}
+						</a>		
+					</p>
+					<p>
+						<input type="text" name="re_content" placeholder="댓글을 적어주세요" width="700" height="50">
 						<input type="submit" value="작성완료"><br>
 					</p>		
 				</form>
@@ -79,7 +93,7 @@ function modify(seq) {
 	const contentInput = 're_content_'+seq;
     // input의 속성 readonly를 없애는 작업
 	document.getElementById(contentInput).readOnly = false;
-    // 수정완료 버튼을 보이게 하기($() 함수 내에 선택자를 전달하여 요소를 선택, #는 선택자 id 선택자)
+    // 수정완료 버튼을 보이게 하기($() 함수 내에 선택자를 전달하여 요소를 선택, #는 id 선택자)
     $('#updateBtn_'+seq).show();
 }
 	// 수정완료키를 누르면 실행되는 함수
