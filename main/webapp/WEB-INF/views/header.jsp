@@ -205,6 +205,9 @@
 	    padding: 0;
 	    margin: 5px auto;
 	}
+   .heart-icon {
+      color: red; 
+   }
 </style>
 </head>
 <body>

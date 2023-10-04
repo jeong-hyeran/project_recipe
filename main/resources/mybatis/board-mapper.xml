@@ -6,132 +6,150 @@
 <mapper namespace="com.itbank.repository.BoardDAO">
 	<insert id="insertBoard" parameterType="board">
 		insert into board (
-			member_idx, 
-			title, 
-			ingr, 
-			content, 
-			fileName 
-			) values (
-			#{member_idx}, 
-			#{title}, 
-			#{ingr}, 
-			#{content}, 
-			#{fileName} 
-			)
+		member_idx,
+		title,
+		ingr,
+		content,
+		fileName
+		) values (
+		#{member_idx},
+		#{title},
+		#{ingr},
+		#{content},
+		#{fileName}
+		)
 	</insert>
-	
-   <select id="selectAll" resultType="board">
-   select 
-       b.*,
-       m.userid as member_userid
-       from board B
-           join member m
-           on m.idx = b.member_idx
-              order by b.idx desc
-   </select>
-	
+
+	<select id="selectAll" resultType="board">
+		select
+		b.*,
+		m.userid as member_userid
+		from board B
+		join member m
+		on m.idx = b.member_idx
+		order by b.idx desc
+	</select>
+
 	<select id="maxIdx" resultType="int">
 		select
-   			 max(idx) from board
-    </select>
-    
-    <select id="selectOne" resultType="board">
-    	select 
-		    b.*,
-		    m.userid as member_userid,
-		    m.fileName as member_fileName
-		    from board B
-		        join member m
-		        on m.idx = b.member_idx
-		        	where b.idx=#{idx}
-	    </select>
-	    
-	    	
+		max(idx) from board
+	</select>
+
+	<select id="selectOne" resultType="board">
+		select
+		b.*,
+		m.userid as member_userid,
+		m.fileName as member_fileName
+		from board B
+		join member m
+		on m.idx = b.member_idx
+		where b.idx=#{idx}
+	</select>
+
+
 	<update id="boardUpdate" parameterType="board">
 		update board
-			set content=#{content}, fileName=#{fileName}, title=#{title}
-			where idx=#{idx}
-	</update>
-	
-	<delete id="boardDelete" parameterType="int">
-		delete board where idx=#{idx}
-	</delete>
-	
-	<select id="search" resultType="board">
-		select 
-		      b.*,
-			    m.userid as member_userid
-		      from board b
-			        join member m
-			        on m.idx = b.member_idx
-		        where 
-		           ingr 
-		           like '%${keyword}%' 
-		                 order by b.idx desc
-	</select>
-	
-	<select id="searches" resultType="board">
-	    select 
-	        b.*,
-	        m.userid as member_userid
-		    from board b
-		    join member m
-		    on m.idx = b.member_idx
-		    where 
-	        <foreach collection="keywords" item="keyword" separator="and ">
-	        <!-- keywords의 배열을 반복하며 keyword를  'and'연산자로 합쳐준다. -->
-	            ingr like '%'|| #{keyword} || '%'
-	        </foreach>
-	    order by b.idx desc
-	</select>
-	
-	
-	<select id="excludeSearch" resultType="board">
-		select 
-		      b.*,
-			    m.userid as member_userid
-		      from board b
-			        join member m
-			        on m.idx = b.member_idx
-		        where 
-		           ingr not like '%${excludeKeyword}%' 
-		                 order by b.idx desc
-	</select>
-	
-	<select id="excludeSearchUP" parameterType="hashMap" resultType="board">
-		select
-		    b.*,
-		    m.userid as member_userid
-		from
-		    board b
-		join
-		    member m 
-		    on m.idx = b.member_idx
-		where
-		    (ingr like '%${keyword}%')
-		    and not (ingr like '%${excludeKeyword}%')
-		order by
-		    b.idx desc
-	</select>
-	
-	<update id="viewCount" parameterType="int">
-		update board 
-			set viewCount = viewCount + 1 where idx = #{idx}
-	</update>
-	
-	<update id="like" parameterType="int">
-		update board
-			set likeCount = likeCount+1 where idx=#{idx}
-	</update>
-	
-	<update id="likeStatusUpdate" parameterType="Map">
-		update board
-			set like_status = #{like_status} where idx=#{idx}
-	</update>
-	
-	<update id="dislike" parameterType="int">
-		update board
-			set likeCount = likeCount-1 where idx=#{idx}
+		set content=#{content}, fileName=#{fileName}, title=#{title}
+		where idx=#{idx}
 	</update>
 
+	<delete id="boardDelete" parameterType="int">
+		delete board where
+		idx=#{idx}
+	</delete>
+
+	<select id="search" resultType="board">
+		select
+		b.*,
+		m.userid as member_userid
+		from board b
+		join member m
+		on m.idx = b.member_idx
+		where
+		ingr
+		like '%${keyword}%'
+		order by b.idx desc
+	</select>
+
+	<select id="searches" resultType="board">
+		select
+		b.*,
+		m.userid as member_userid
+		from board b
+		join member m
+		on m.idx = b.member_idx
+		where
+		<foreach collection="keywords" item="keyword" separator="and ">
+			<!-- keywords의 배열을 반복하며 keyword를 'and'연산자로 합쳐준다. -->
+			ingr like '%'|| #{keyword} || '%'
+		</foreach>
+		order by b.idx desc
+	</select>
+
+
+	<select id="excludeSearch" resultType="board">
+		select
+		b.*,
+		m.userid as member_userid
+		from board b
+		join member m
+		on m.idx = b.member_idx
+		where
+		ingr not like '%${excludeKeyword}%'
+		order by b.idx desc
+	</select>
+
+	<select id="excludeSearchUP" parameterType="hashMap"
+		resultType="board">
+		select
+		b.*,
+		m.userid as member_userid
+		from
+		board b
+		join
+		member m
+		on m.idx = b.member_idx
+		where
+		(ingr like '%${keyword}%')
+		and not (ingr like '%${excludeKeyword}%')
+		order by
+		b.idx desc
+	</select>
+
+	<update id="viewCount" parameterType="int">
+		update board
+		set viewCount = viewCount + 1 where idx = #{idx}
+	</update>
+
+	<select id="selectBoardLike" parameterType="boardLike"
+		resultType="boardLike">
+		select * from board_like
+		where board_idx=#{board_idx} and member_userid=#{member_userid}
+	</select>
+
+	<insert id="insertBoardLike" parameterType="boardLike">
+		insert into
+		board_like(board_idx, member_userid)
+		values(#{board_idx}, #{member_userid})
+	</insert>
+
+	<select id="selectboardLikeByIdx" parameterType="int"
+		resultType="boardLike">
+		select * from board_like where idx=#{idx}
+	</select>
+
+	<update id="updateLikeStatus" parameterType="boardLike">
+		update board_like
+		set blike_status=#{blike_status} where idx=#{idx}
+	</update>
+
+	<update id="updateLikeCountUp" parameterType="int">
+		update board set
+		likeCount = likeCount+1 where idx=#{idx}
+	</update>
+
+	<update id="updateLikeCountDown" parameterType="int">
+		update board set
+		likeCount = likeCount-1 where idx=#{idx}
+	</update>
 </mapper>
