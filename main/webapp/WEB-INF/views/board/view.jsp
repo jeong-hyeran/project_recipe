@@ -30,20 +30,35 @@
 			<div>${content }</div>
 		</c:forEach>
 	</div>
-	<c:if test="${not empty login }">
+	
+	<!-- 댓글 작성 form -->
+	<c:if test="${not empty login && login.userid != dto.member_userid}">
 		<div id="reviewWrite">
-			<form method="POST" action="${cpath }/board/review/write">
+			<form method="POST" action="${cpath}/board/review/write/${dto.idx}">
 			<p>
-				<input type="hidden" name="board_idx" value="${dto.idx }">
-				<input type="text" name="re_content" placeholder="댓글을 적어주세요">
+				<a href="${cpath }/board/like/${dto.idx}/${login.userid}" class="switch">
+					<span class="heart-icon">
+					<c:if test="${like_status == 'false' or empty like_status}">
+						&#x2661;								<!-- 빨간색 빈 하트 : &#x2661;(U+2661) -->
+					</c:if>
+					<c:if test="${like_status == 'true' }">
+						&#x2764;				
+					</c:if>
+					</span>${dto.likeCount}
+				</a>		
+			</p>
+			<p>
+				<input type="text" name="re_content" placeholder="댓글을 적어주세요" width="700" height="50">
 				<input type="submit" value="작성완료"><br>
 			</p>		
 			</form>
 		</div>
 	</c:if>
 	<c:if test="${empty login }">
-	로그인 후 댓글 작성 가능합니다.
+		로그인 후 댓글 작성 가능합니다.
 	</c:if>
+	
+	<!-- 작성된 댓글 목록 -->
 	<c:forEach var="re_dto" items="${re_list }">
 		<section id="review">
 			<div class="flex">
@@ -84,6 +99,35 @@
 	
 	updateBtn.addEventListener('click', Handler)
 	deleteBtn.addEventListener('click', Handler)
+	
+
+	
+// 	const links = document.querySelectorAll('.switch');
+	
+// 	links.forEach(function(link) {
+// 	  link.addEventListener('click', function(event) {
+// 	    event.preventDefault();
+	
+// 	    // 클릭 이벤트가 발생한 링크에서 idx와 like_status를 가져옵니다.
+// 	    const href = link.getAttribute('href');
+// 	    const parts = href.split('/');
+// 	    let idx = parts[4];
+// 	    const span = link.querySelector('span');
+	
+// 	    // like_status 변경
+// 	    let like_status = parts[5]; // 혹은 직접 변수에 할당하는 방식으로 가져올 수 있음
+// 	    like_status = like_status === 'like' ? 'dislike' : 'like';
+// 	    console.log(like_status)
+	    
+	    
+// 	    if (like_status === 'like') {
+// 	      location.href = '${cpath}/board/like/' + idx + '/' +  like_status;
+// 	    } else {
+// 	      location.href = '${cpath}/board/dislike/' + idx + '/' + like_status;
+// 	    }
+// 	  });
+// 	});
+	
 </script>
 
 

@@ -119,19 +119,29 @@
 			set viewCount = viewCount + 1 where idx = #{idx}
 	</update>
 	
-	<update id="like" parameterType="int">
-		update board
-			set likeCount = likeCount+1 where idx=#{idx}
+	<select id="selectBoardLike" parameterType="boardLike" resultType="boardLike">
+		select * from board_like 
+			where board_idx=#{board_idx} and member_userid=#{member_userid}
+	</select>
+	
+	<insert id="insertBoardLike" parameterType="boardLike">
+		insert into board_like(board_idx, member_userid)
+			values(#{board_idx}, #{member_userid})
+	</insert>
+	
+	<select id="selectboardLikeByIdx" parameterType="int" resultType="boardLike">
+		select * from board_like where idx=#{idx}
+	</select>
+	
+	<update id="updateLikeStatus" parameterType="boardLike">
+		update board_like set blike_status=#{blike_status} where idx=#{idx}
 	</update>
 	
-	<update id="likeStatusUpdate" parameterType="Map">
-		update board
-			set like_status = #{like_status} where idx=#{idx}
+	<update id="updateLikeCountUp" parameterType="int">
+		update board set likeCount = likeCount+1 where idx=#{idx}
 	</update>
 	
-	<update id="dislike" parameterType="int">
-		update board
-			set likeCount = likeCount-1 where idx=#{idx}
+	<update id="updateLikeCountDown" parameterType="int">
+		update board set likeCount = likeCount-1 where idx=#{idx}
 	</update>
-
 </mapper>
