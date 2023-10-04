@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,14 +165,13 @@ public class BoardService {
 		
 		return list;
 	}
-
 	public BoardLikeDTO selectBoardLike(BoardLikeDTO dto) {
 		return boardDAO.selectBoardLike(dto);
 	}
-
 	public int insertLike(BoardLikeDTO dto) {
 		return boardDAO.insertBoardLike(dto);
 	}
+
 
 	public BoardLikeDTO selectboardLikeByIdx(int idx) {
 		return boardDAO.selectboardLikeByIdx(idx);
@@ -189,9 +189,6 @@ public class BoardService {
 		return boardDAO.updateLikeCountDown(idx);
 	}
 
-
-
- 
   
 	
 }

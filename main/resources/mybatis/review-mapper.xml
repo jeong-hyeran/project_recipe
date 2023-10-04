@@ -19,14 +19,26 @@
 
 	<select id="reviewSelectAll" parameterType="int" resultType="review">
 		select
-		    r.*,m.userid as member_userid 
-		   	 	from review r
-				    join member m
-				    	on r.member_idx = m.idx
-				    join board b
-				    	on b.idx = r.board_idx
-				    where b.idx =#{idx}
-				    order by r.idx desc
+		    r.*,m.userid as member_userid ,
+		    m.fileName as member_fileName
+		from review r
+	    join member m
+    	on r.member_idx = m.idx
+	    join board b
+    	on b.idx = r.board_idx
+	    where b.idx =#{idx}
+	    order by r.idx desc
 	</select>
-
+	
+	<update id="update" parameterType="review">
+		update review 
+		set re_content=#{re_content} 
+		where 1=1
+		and
+			idx=#{idx}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete review where idx=#{idx}
+	</delete>
 </mapper>

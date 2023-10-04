@@ -22,7 +22,7 @@ public class BoardLikeDTO {
 	private String member_userid;
 	private int board_idx;
 	private String blike_status;
-	
+
 	public int getIdx() {
 		return idx;
 	}
@@ -47,7 +47,7 @@ public class BoardLikeDTO {
 	public void setBlike_status(String blike_status) {
 		this.blike_status = blike_status;
 	}
-	
-	
-	
+
+
+
 }

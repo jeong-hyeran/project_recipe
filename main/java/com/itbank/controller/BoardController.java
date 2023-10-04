@@ -1,7 +1,9 @@
 package com.itbank.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,9 +27,9 @@ import com.itbank.service.ReviewService;
 @RequestMapping("/board")
 public class BoardController {
 
-	@Autowired private BoardService boardService;
+
 	@Autowired private ReviewService reviewService;
-	
+	@Autowired private BoardService boardService;
 	
 	@GetMapping("/write")
 	public void write() {}
@@ -51,7 +53,7 @@ public class BoardController {
 		return mav;
 	}
 	
-	@GetMapping("/view/{idx}")	
+	@GetMapping("/view/{idx}")
 	public ModelAndView view(@PathVariable("idx") int idx, HttpSession session) {
 		ModelAndView mav = new ModelAndView("board/view");
 		BoardDTO dto = boardService.selectOne(idx);
@@ -67,7 +69,7 @@ public class BoardController {
 			likeDTO.setBoard_idx(idx);
 			// 게시글의 번호와 멤버의 아이디가 일치하는 BoardLike 데이터를 가져옴
 			likeDTO = boardService.selectBoardLike(likeDTO);
-			
+
 			// board_like 테이블에는 글의 좋아요를 눌렀을 때 데이터가 insert되기 때문에
 			// 좋아요를 한번도 누르지 않은 경우에는 result가 null 값이기 때문에 null 체크 조건을 걸어줌
 			// 일치하는 정보가 있을때는 blike_status 정보를 가져와서 데이터를 보내줌
@@ -75,6 +77,7 @@ public class BoardController {
 				mav.addObject("like_status", likeDTO.getBlike_status());
 			}
 		}
+		
 		List<String> contentList = boardService.getContentList(dto);
 		List<String> fileNameList = boardService.getFileNameList(dto);
 		List<ReviewDTO> re_list = reviewService.reviewSelectAll(idx);
@@ -168,7 +171,7 @@ public class BoardController {
 	   BoardLikeDTO dto = new BoardLikeDTO();
 	   dto.setBoard_idx(idx);
 	   dto.setMember_userid(member_userid);
-	   
+
 	   // 좋아요를 눌렀을 때 데이터가 있는지 없는지 확인 후 없으면 insert
 	   // 있으면 있는 데이터에서 like_status를 가져옴
 	   // 게시글 번호와 멤버의 아이디를 이용해 일치하는 데이터가 있는지 체크
@@ -179,7 +182,7 @@ public class BoardController {
 		   // insert 후 게시글 번호와 멤버의 아이디를 이용해 일치하는 데이터를 가져옴
 		   currentDTO = boardService.selectBoardLike(dto);
 	   }
-	   
+
 	   // currentDTO에서 like_status 정보를 가져옴(즉, 반전되기 전의 상태)
 	   String like_status = currentDTO.getBlike_status();
 	   // like_status의 상태 반전
@@ -199,6 +202,8 @@ public class BoardController {
 	   mav.addObject("idx", idx);			// board/view 페이지를 보여주기 위한 board의 idx 데이터를 같이 보내줌
 	   return mav;
    }
+   
+
    
 }
 

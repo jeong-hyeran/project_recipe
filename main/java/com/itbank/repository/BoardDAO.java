@@ -44,6 +44,7 @@ public interface BoardDAO {
 
 	void dislike(int idx);
 
+
 	BoardLikeDTO selectBoardLike(BoardLikeDTO dto);
 
 	int insertBoardLike(BoardLikeDTO dto);
@@ -56,8 +57,6 @@ public interface BoardDAO {
 
 	int updateLikeCountDown(int idx);
 
-	
-	
 
 
 
