@@ -13,4 +13,10 @@ public interface ReviewDAO {
 
 	List<ReviewDTO> reviewSelectAll(int idx);
 
+	ReviewDTO selectOne(int idx);
+
+	void update(ReviewDTO dto);
+
+	void delete(int idx);
+
 }
