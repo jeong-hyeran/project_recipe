@@ -1,9 +1,8 @@
 package com.itbank.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,53 +124,14 @@ public class BoardService {
 	      return boardDAO.boardDelete(dto.getIdx());
 	   }
 	
-	// 검색어가 하나일 경우 검색
-	public List<BoardDTO> search(String keyword) {
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		System.out.printf("키워드는 %s", keyword);
-		list = boardDAO.search(keyword);
-		return list;
-	}
-
-	// 검색어가 여러개일 경우 검색
-	public List<BoardDTO> searches(String keyword) {
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		// keyword를 [,]기준으로 나눠서 배열로 담기
-		String[] keywords = keyword.split(",");
-		
-		for (int i = 0; i < keywords.length; i++) {
-			String searchKeyword = keywords[i];
-			List<BoardDTO> searchResult = boardDAO.searches(searchKeyword);
-	        list.addAll(searchResult); 
-		}
-		return list;
-	}
 	
-	// 제외하는 검색어가 하나일 경우 검색
-	public List<BoardDTO> excludeSearch(String excludeKeyword) {
-		List<BoardDTO> list = new ArrayList<BoardDTO>(); 
-		list = boardDAO.excludeSearch(excludeKeyword);
-		return list;
-	}
-	
-	
-	// 제외할 검색어가 있을때
-	public List<BoardDTO> excludeSearchUP(String keyword, String excludeKeyword) {
-		HashMap<String, String> map = new HashMap<>();
-		map.put("keyword", keyword);
-		map.put("excludeKeyword", excludeKeyword);
-		List<BoardDTO> list = boardDAO.excludeSearchUP(map);
-		
-		return list;
-	}
-
 	public BoardLikeDTO selectBoardLike(BoardLikeDTO dto) {
 		return boardDAO.selectBoardLike(dto);
 	}
-
 	public int insertLike(BoardLikeDTO dto) {
 		return boardDAO.insertBoardLike(dto);
 	}
+
 
 	public BoardLikeDTO selectboardLikeByIdx(int idx) {
 		return boardDAO.selectboardLikeByIdx(idx);
@@ -189,9 +149,14 @@ public class BoardService {
 		return boardDAO.updateLikeCountDown(idx);
 	}
 
+	public List<BoardDTO> search(Map<String, Object> map) {
+		List<BoardDTO> list = boardDAO.search(map);
+		return list;
+	}
 
 
- 
+
+
   
 	
 }

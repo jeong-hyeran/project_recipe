@@ -1,8 +1,8 @@
 package com.itbank.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ import com.itbank.service.ReviewService;
 @RequestMapping("/board")
 public class BoardController {
 
-	@Autowired private BoardService boardService;
+
 	@Autowired private ReviewService reviewService;
-	
+	@Autowired private BoardService boardService;
 	
 	@GetMapping("/write")
 	public void write() {}
@@ -51,7 +51,7 @@ public class BoardController {
 		return mav;
 	}
 	
-	@GetMapping("/view/{idx}")	
+	@GetMapping("/view/{idx}")
 	public ModelAndView view(@PathVariable("idx") int idx, HttpSession session) {
 		ModelAndView mav = new ModelAndView("board/view");
 		BoardDTO dto = boardService.selectOne(idx);
@@ -67,7 +67,7 @@ public class BoardController {
 			likeDTO.setBoard_idx(idx);
 			// 게시글의 번호와 멤버의 아이디가 일치하는 BoardLike 데이터를 가져옴
 			likeDTO = boardService.selectBoardLike(likeDTO);
-			
+
 			// board_like 테이블에는 글의 좋아요를 눌렀을 때 데이터가 insert되기 때문에
 			// 좋아요를 한번도 누르지 않은 경우에는 result가 null 값이기 때문에 null 체크 조건을 걸어줌
 			// 일치하는 정보가 있을때는 blike_status 정보를 가져와서 데이터를 보내줌
@@ -75,6 +75,7 @@ public class BoardController {
 				mav.addObject("like_status", likeDTO.getBlike_status());
 			}
 		}
+		
 		List<String> contentList = boardService.getContentList(dto);
 		List<String> fileNameList = boardService.getFileNameList(dto);
 		List<ReviewDTO> re_list = reviewService.reviewSelectAll(idx);
@@ -123,43 +124,35 @@ public class BoardController {
       return "redirect:/member/mypage";
    }
 
-   // 검색 옵션 
+   
+   // 검색 기능과 관련된 부분
    @PostMapping("/search")
-   public ModelAndView search(String searchOption, String keyword){
-      ModelAndView mav = new ModelAndView("board/searchList");
-      List<BoardDTO> list = new ArrayList<BoardDTO>(); 
-      // boardDTO를 담을 list선언
-      if ("keyword".equals(searchOption)) {
-         // searchOption의 값이 keyword(포함하는 검색)이면 
-         list = boardService.search(keyword);
-         // search 메서드 실행
-         mav.addObject("keyword",keyword);
-         // 포함하는 검색어를 mav에 담기
-      } else if ("excludeKeyword".equals(searchOption)) {
-         // searchOption의 값이 excludeKeyword(제외하는 검색)이면 
-         list = boardService.excludeSearch(keyword);
-         // excluedSearch 메서드 실행
-         mav.addObject("excludeKeyword",keyword);
-         // 제외하는 검색어를 mav에 담기
-      }
-      mav.addObject("searchOption",searchOption);
-      mav.addObject("list",list);
-      return mav;
+   public ModelAndView search(String searchOption, String keyword) {
+	   ModelAndView mav = new ModelAndView("board/searchList");
+	   Map<String, Object> map = new HashMap<>();
+	   String[] keywords = null;
+	   List<BoardDTO> list = null;
+	   
+	   System.out.println("현재 검색어 : " + keyword);
+	   // 만약 keyword가 ,를 포함하면(다중 검색이면)
+	   if(keyword.contains(",")) {
+		   keywords = keyword.split(",");
+	   }
+	   // 그렇지 않으면(키워드가 한개이면) 배열로 만들어주기 위해서
+	   // 공백을 하나 넣어주고 그걸 기준으로 배열로 바꿈
+	   else {			
+		   keyword += " ";
+		   keywords = keyword.split(" ");
+	   }
+	   // mapper.xml에서 조건을 나누기 위해서 선택한 옵션도 map에 넣어서 보내줌
+	   map.put("searchOption", searchOption);
+	   map.put("keywords", keywords);
+	   list = boardService.search(map);
+
+	   mav.addObject("list", list);
+	   return mav;
    }
    
-
-   // 포함한 검색 리스트에서 제외할 검색어가 있을때
-   @PostMapping("/searchList")
-   public ModelAndView excludeSearch(String keyword, String excludeKeyword) {
-     ModelAndView mav = new ModelAndView("board/searchList");
-     List<BoardDTO> list = boardService.excludeSearchUP(keyword, excludeKeyword);
-     // 쿼리문 실행
-     System.out.println("포함 : "+ keyword + ", 제외 : " + excludeKeyword);
-     mav.addObject("list",list);
-     mav.addObject("excludeKeyword",excludeKeyword);
-     mav.addObject("keyword",keyword);
-     return mav;
-   }
    
    // 좋아요 기능과 관련된 부분
    @GetMapping("like/{idx}/{member_userid}")
@@ -168,7 +161,7 @@ public class BoardController {
 	   BoardLikeDTO dto = new BoardLikeDTO();
 	   dto.setBoard_idx(idx);
 	   dto.setMember_userid(member_userid);
-	   
+
 	   // 좋아요를 눌렀을 때 데이터가 있는지 없는지 확인 후 없으면 insert
 	   // 있으면 있는 데이터에서 like_status를 가져옴
 	   // 게시글 번호와 멤버의 아이디를 이용해 일치하는 데이터가 있는지 체크
@@ -179,7 +172,7 @@ public class BoardController {
 		   // insert 후 게시글 번호와 멤버의 아이디를 이용해 일치하는 데이터를 가져옴
 		   currentDTO = boardService.selectBoardLike(dto);
 	   }
-	   
+
 	   // currentDTO에서 like_status 정보를 가져옴(즉, 반전되기 전의 상태)
 	   String like_status = currentDTO.getBlike_status();
 	   // like_status의 상태 반전
@@ -199,6 +192,8 @@ public class BoardController {
 	   mav.addObject("idx", idx);			// board/view 페이지를 보여주기 위한 board의 idx 데이터를 같이 보내줌
 	   return mav;
    }
+   
+
    
 }
 

@@ -8,8 +8,8 @@
 	<form method="POST" action="${cpath}/board/search">
 	    <p>
 	        <select name="searchOption">
-	            <option value="keyword">포함 할</option>
-	            <option value="excludeKeyword">제외 할</option>
+	            <option value="include">포함 할</option>
+	            <option value="exclude">제외 할</option>
 	        </select>
 	        <input type="search" name="keyword" placeholder="재료를 입력하세요" autofocus required>
 	        <input type="submit" value="검색">

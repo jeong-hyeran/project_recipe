@@ -1,6 +1,5 @@
 package com.itbank.repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,17 +22,9 @@ public interface BoardDAO {
 	int boardUpdate(BoardDTO dto);
 
 	int boardDelete(int idx);
-
-	List<BoardDTO> search(String keyword);
-
-	List<BoardDTO> excludeSearchUP(HashMap<String, String> map);
-
-	List<BoardDTO> excludeSearch(String excludeKeyword);
-
+	
 	int viewCount(int idx);
-
-	List<BoardDTO> searches(String searchKeyword);
-
+	
 	void boardLike(int idx);
 
 	void boardHate(int idx);
@@ -56,8 +47,9 @@ public interface BoardDAO {
 
 	int updateLikeCountDown(int idx);
 
-	
-	
+	List<BoardDTO> search(Map<String, Object> map);
+
+
 
 
 
