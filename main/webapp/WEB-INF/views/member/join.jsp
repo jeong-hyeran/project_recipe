@@ -10,7 +10,7 @@
 	<p><input type="text" name="username" placeholder="Name" required autocomplete="off"></p>
 	<p><input type="email" name="email" placeholder="Email" required autocomplete="off"></p>
 	<p><input type="text" name="memo" placeholder="인사말" autocomplete="off"></p>
-	<p>프로필 이미지<br><input type="file" name="upload"></p>
+	<p>프로필 이미지<br><input type="file" name="upload" style="padding-left: 70px"></p>
 	<p><input type="submit" value="회원가입"></p>
 </form>
 

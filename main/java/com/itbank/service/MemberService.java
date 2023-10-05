@@ -113,6 +113,41 @@ public class MemberService {
 		List<BoardDTO> list = memberDAO.selectBoardByIdx(idx);
 		return list;
 	}
+
+
+	public String updatePW(HashMap<String, String> param) {
+	    String userid = param.get("userid");
+	    String email = param.get("email");
+	    MemberDTO login = memberDAO.selectOneById(userid);
+	    String newPW = null ; 
+	    // userid로 member객체를 불러와서 
+	    if(email.equals(login.getEmail())) {
+	    	//입력한 email과 login의 email이 같으면
+	    	// 비밀번호 재발급
+	    	String salt = hashComponent.getRandomSalt();
+	    	 // salt 설정
+	    	newPW = hashComponent.getRandomSalt();
+	    	// 또 다른 salt를 받아서 임시 비밀번호로 사용
+	    	String userpw = hashComponent.getHash(newPW, salt);
+	    	// hash처리 해서
+	    	login.setSalt(salt);
+	    	login.setUserpw(userpw);
+	    	memberDAO.memberUpdate(login);  
+	    	// login에 세팅해서 정보 수정
+	    }
+	    
+		return newPW;
+	}
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
