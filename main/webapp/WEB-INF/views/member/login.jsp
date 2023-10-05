@@ -9,8 +9,9 @@
 	<p><input type="password" name="userpw" placeholder="Password" required></p>
 	<p><input type="submit" value="로그인"></p>
 </form>
-
-
+<hr>
+<p><a href="${cpath }/member/join"><button>회원가입</button></a></p>
+<p><a href="${cpath }/member/updatePW" style="font-size: 0.8rem">비밀번호 재발급</a></p>
 </div>
 </body>
 </html>
