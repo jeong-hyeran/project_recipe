@@ -7,5 +7,7 @@
 	<typeAliases>
 		<typeAlias type="com.itbank.model.MemberDTO" alias="member"/>
 		<typeAlias type="com.itbank.model.BoardDTO" alias="board"/>
+		<typeAlias type="com.itbank.model.ReviewDTO" alias="review"/>
+		<typeAlias type="com.itbank.model.BoardLikeDTO" alias="boardLike"/>
 	</typeAliases>
 </configuration>

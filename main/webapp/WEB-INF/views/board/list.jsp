@@ -8,8 +8,8 @@
 	<form method="POST" action="${cpath}/board/search">
 	    <p>
 	        <select name="searchOption">
-	            <option value="keyword">포함 할</option>
-	            <option value="excludeKeyword">제외 할</option>
+	            <option value="include">포함 할</option>
+	            <option value="exclude">제외 할</option>
 	        </select>
 	        <input type="search" name="keyword" placeholder="재료를 입력하세요" autofocus required>
 	        <input type="submit" value="검색">
@@ -48,7 +48,7 @@
 				<td>${dto.member_userid }</td>
 				<td>${dto.wdate }</td>
 				<td>👁️‍🗨️${dto.viewCount }</td>
-				<td>❤️${dto.likeCount }</td>
+				<td>❤️${dto.likeCount}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -57,5 +57,8 @@
 	<li><a href="${cpath }/board/write"><button>글작성</button></a></li>
 </ul>
 </div>
+
+
+
 </body>
 </html>

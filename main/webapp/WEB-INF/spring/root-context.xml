@@ -27,6 +27,7 @@
 			<list>
 				<value>classpath:mybatis/member-mapper.xml</value>
 				<value>classpath:mybatis/board-mapper.xml</value> 
+				<value>classpath:mybatis/review-mapper.xml</value> 
 			</list>
 		</property>
 	</bean>

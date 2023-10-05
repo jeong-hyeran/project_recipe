@@ -5,7 +5,6 @@
 <h3>글목록</h3>
 
 	<div class="keyword">
-		<c:if test="${empty excludeKeyword or empty keyword}">
 		<div class="include">
 			<c:if test="${searchOption eq 'keyword' and not empty keyword}">
 				<div style="font-size: 0.7rem;">아래 재료가 포함된 레시피 입니다.</div>
@@ -19,7 +18,6 @@
 				<span id="restore">${excludeKeyword }</span>
 			</c:if>
 		</div>
-		</c:if>
 	</div>
 	
 	<div class="keyword">	

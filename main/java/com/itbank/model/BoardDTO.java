@@ -22,13 +22,13 @@ public class BoardDTO {
 	private String title;
 	private List<String> contents;
 	private String content;
-	private List<String> ingrs;
 	private String ingr;
 	private String fileName;
 	private List<MultipartFile> upload;
 	private Date wdate;
 	private int viewCount;
 	private int likeCount;
+	private String like_status;
 	
 	private String member_fileName;
 	private String member_userid;
@@ -63,12 +63,6 @@ public class BoardDTO {
 	}
 	public final void setContent(String content) {
 		this.content = content;
-	}
-	public final List<String> getIngrs() {
-		return ingrs;
-	}
-	public final void setIngrs(List<String> ingrs) {
-		this.ingrs = ingrs;
 	}
 	public final String getIngr() {
 		return ingr;
@@ -124,6 +118,12 @@ public class BoardDTO {
 	}
 	public final void setMember_username(String member_username) {
 		this.member_username = member_username;
+	}
+	public String getLike_status() {
+		return like_status;
+	}
+	public void setLike_status(String like_status) {
+		this.like_status = like_status;
 	}
 	
 	
