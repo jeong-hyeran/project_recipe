@@ -22,9 +22,9 @@ public interface BoardDAO {
 	int boardUpdate(BoardDTO dto);
 
 	int boardDelete(int idx);
-	
+
 	int viewCount(int idx);
-	
+
 	void boardLike(int idx);
 
 	void boardHate(int idx);
@@ -49,8 +49,7 @@ public interface BoardDAO {
 
 	List<BoardDTO> search(Map<String, Object> map);
 
-
-
+	List<BoardDTO> excludeSearch(Map<String, Object> map);
 
 
 }

@@ -3,6 +3,7 @@ package com.itbank.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itbank.model.BoardDTO;
@@ -127,28 +129,49 @@ public class BoardController {
    
    // 검색 기능과 관련된 부분
    @PostMapping("/search")
-   public ModelAndView search(String searchOption, String keyword) {
+   public ModelAndView search(@RequestParam Map<String, Object> map) {
+	   ModelAndView mav = new ModelAndView("board/searchList");
+	   String keyword = (String)map.get("keyword");
+	   
+	   // 만약 keyword가 한개 이면 뒤에 ,하나 붙여줌
+	   if(keyword.length() == 1) {
+		   keyword += ",";
+	   }
+	   // 검색어에 공백이 들어가 있으면 검색 결과가 달라지기 때문에 제거
+	   keyword = keyword.replace(" ", "");
+	   // ,를 기준으로 잘라서 배열로 만들어줌
+	   String[] keywords = keyword.split(",");
+	   map.put("keywords", keywords);
+	   List<BoardDTO> list = boardService.search(map);
+	   mav.addObject("searchOption", map.get("searchOption"));
+	   mav.addObject("keyword", keyword);
+	   mav.addObject("list", list);
+	   return mav;
+   }
+   
+   @PostMapping("/searchList/{keyword}")
+   public ModelAndView searchList(@PathVariable("keyword")String keyword, String excludeKeyword) {
 	   ModelAndView mav = new ModelAndView("board/searchList");
 	   Map<String, Object> map = new HashMap<>();
-	   String[] keywords = null;
-	   List<BoardDTO> list = null;
+	   // search에서 이미 공백이 제거되어 있는 keyword이기 때문에
+	   // 공백 제거는 필요없고 배열로만 만들어서 보내줌
+	   if(keyword.length() == 1) {
+		   keyword += ",";
+	   }
+	   String[] keywords = keyword.split(",");
+	   map.put("keywords",keywords);
 	   
-	   System.out.println("현재 검색어 : " + keyword);
-	   // 만약 keyword가 ,를 포함하면(다중 검색이면)
-	   if(keyword.contains(",")) {
-		   keywords = keyword.split(",");
+	   // 제외 검색어도 여러개일수도 있기 때문에 배열로 만들어서 보내줌
+	   if(excludeKeyword.length() == 1) {
+		   excludeKeyword += ",";
 	   }
-	   // 그렇지 않으면(키워드가 한개이면) 배열로 만들어주기 위해서
-	   // 공백을 하나 넣어주고 그걸 기준으로 배열로 바꿈
-	   else {			
-		   keyword += " ";
-		   keywords = keyword.split(" ");
-	   }
-	   // mapper.xml에서 조건을 나누기 위해서 선택한 옵션도 map에 넣어서 보내줌
-	   map.put("searchOption", searchOption);
-	   map.put("keywords", keywords);
-	   list = boardService.search(map);
-
+	   // 제외 검색어에 띄어쓰기가 있을 경우 결과가 달라지니까 없애줌
+	   excludeKeyword = excludeKeyword.replace(" ", "");
+	   // ,를 기준으로 잘라내서 배열로 만들어줌
+	   String[] excludeKeywords = excludeKeyword.split(",");
+	   map.put("excludeKeywords",excludeKeywords);
+	   List<BoardDTO> list = boardService.excludeSearch(map);
+	   mav.addObject("excludeKeyword", excludeKeyword);
 	   mav.addObject("list", list);
 	   return mav;
    }

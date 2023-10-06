@@ -22,8 +22,7 @@
 	<div id="boardIngr">
 		<div>${dto.ingr }</div>
 	</div>
-	
-	<!-- 작성한 게시글 -->
+
 	<div id="boardContent">
 		<c:forEach var="content" items="${contentList}" varStatus="status">
 			<div>
@@ -32,9 +31,9 @@
 			<div>${content }</div>
 		</c:forEach>
 	</div>
-	
-	<!-- 댓글 작성/좋아요 수와 하트 -->
 	<div id="review_input">
+	
+	
 		<c:if test="${not empty login }">
 			<div id="reviewWrite">
 				<form method="POST" action="${cpath }/board/review/write/${dto.idx}">
@@ -57,29 +56,25 @@
 				</form>
 			</div>
 		</c:if>
-		
 		<c:if test="${empty login }">
 			<div style="font-weight: bold; padding:10px 5px;">
 				로그인 후 댓글 작성 가능합니다.
 			</div>
 		</c:if>
 	</div>
-	
-	<!-- 리뷰 목록 -->
 	<c:forEach var="re_dto" items="${re_list }">
 		<section id="review">
-			<!-- 리뷰 작성자 프사와 아이디/수정,삭제 버튼 -->
 			<form>
-				<div class="flex">
-					<div>
-						<a href="${cpath }/member/view/${re_dto.member_idx }">
-							<img class="profileImg" src="${cpath }/profile/${re_dto.member_fileName }">
-						</a>
-							<div>${re_dto.member_userid }</div>
-					</div>
-					<input class="re_update" id="re_content_${re_dto.idx}" type="text" value="${re_dto.re_content }" readonly>
-				 	<input type="button" value="수정완료" style="display: none;" id="updateBtn_${re_dto.idx}" onclick="update('${re_dto.idx}')">
-				</div>
+			<div class="flex">
+	<div>
+			<a href="${cpath }/member/view/${re_dto.member_idx }">
+				<img class="profileImg" src="${cpath }/profile/${re_dto.member_fileName }">
+			</a>
+				<div>${re_dto.member_userid }</div>
+		</div>
+				<input class="re_update" id="re_content_${re_dto.idx}" type="text" value="${re_dto.re_content }" readonly>
+				 <input type="button" value="수정완료" style="display: none;" id="updateBtn_${re_dto.idx}" onclick="update('${re_dto.idx}')">
+			</div>
 			</form>
 			<c:if test="${login.userid eq re_dto.member_userid }">
 				<div id="review_up">

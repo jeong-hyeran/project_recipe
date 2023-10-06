@@ -32,6 +32,14 @@
 		border: 1px solid black;
 		padding: 10px;
 	}
+	#join, #login, #updatePW{
+		border: 1px solid #eee;
+		margin: 20px auto;
+		padding: 20px 40px;
+		width: fit-content;
+		text-align: center;
+		border-radius: 15px;
+	}
 	textarea {
 		margin: 10px 5px;
 	}

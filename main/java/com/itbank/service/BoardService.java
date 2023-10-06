@@ -15,7 +15,6 @@ import com.itbank.repository.BoardDAO;
 
 @Service
 public class BoardService {
-
 	@Autowired private BoardFileComponent fileComponent;
 	@Autowired private BoardDAO boardDAO;
 	
@@ -30,7 +29,6 @@ public class BoardService {
 	    }
 	    System.out.println(s);
 	    dto.setContent(s);
-
 	    String file = "";
 	    for (int i = 0; i < dto.getUpload().size(); i++) {
 	        String fileName = fileComponent.upload(dto.getUpload().get(i));
@@ -40,12 +38,10 @@ public class BoardService {
 	        }
 	    }
 	    dto.setFileName(file);
-
 	    boardDAO.insertBoard(dto);
 	    int idx = boardDAO.maxIdx();
 	    return idx;
 	}
-
 	public List<BoardDTO> selectAll() {
 		List<BoardDTO> list = boardDAO.selectAll();
 		return list;
@@ -57,7 +53,7 @@ public class BoardService {
 		dto.setViewCount(viewCount);
 		return dto;
 	}
-	
+
 	// 내용을 | 기준으로 잘라서 배열로 만든 뒤 리스트로 반환해주는 메서드
 	public List<String> getContentList(BoardDTO dto) {
 	    String[] content = dto.getContent().split("\\|"); 
@@ -71,11 +67,10 @@ public class BoardService {
 	    List<String> fileNameList = Arrays.asList(fileName);
 	    return fileNameList;
 	}
-
 	public int boardUpdate(BoardDTO dto) {
 		List<MultipartFile> uploadList = dto.getUpload();
 		List<String> contentList = dto.getContents();
-		
+
 		// content
 		String content = "";
 		for(int i = 0; i < contentList.size(); i++) {
@@ -93,10 +88,10 @@ public class BoardService {
 		String currentFile = curr.getFileName();
 		System.out.println(currentFile);
 		System.out.println();
-		
+
 		String[] arr = currentFile.split("\\|");
-		
-		
+
+
 		for(int i = 0; i < uploadList.size(); i++) {
 			if(uploadList.get(i).getSize() == 0) {
 				fileName += arr[i];
@@ -111,10 +106,9 @@ public class BoardService {
 		}
 		dto.setContent(content);
 		dto.setFileName(fileName);
-		
+
 		return boardDAO.boardUpdate(dto);
 	}
-
 	public int boardDelete(BoardDTO dto) {
 	      String fileName = dto.getFileName();
 	      String[] arr = fileName.split("\\|");
@@ -123,8 +117,8 @@ public class BoardService {
 	      }
 	      return boardDAO.boardDelete(dto.getIdx());
 	   }
-	
-	
+
+
 	public BoardLikeDTO selectBoardLike(BoardLikeDTO dto) {
 		return boardDAO.selectBoardLike(dto);
 	}
@@ -153,10 +147,15 @@ public class BoardService {
 		List<BoardDTO> list = boardDAO.search(map);
 		return list;
 	}
-
-
-
-
-  
 	
+	public List<BoardDTO> excludeSearch(Map<String, Object> map) {
+		List<BoardDTO> list = boardDAO.excludeSearch(map);
+		return list;
+	}
+
+
+
+
+
+
 }

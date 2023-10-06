@@ -3,25 +3,25 @@
 <%@ include file="../header.jsp" %>
 <div class="boardList">
 <h3>글목록</h3>
-
+	<!-- 처음 검색한 결과 리스트 위에 띄워지는 문구 -->
 	<div class="keyword">
 		<div class="include">
-			<c:if test="${searchOption eq 'keyword' and not empty keyword}">
+			<c:if test="${searchOption eq 'include'}">
 				<div style="font-size: 0.7rem;">아래 재료가 포함된 레시피 입니다.</div>
 				<span id="restore">${keyword }</span>
 			</c:if>
 		</div>
-
 		<div class="exclude">
-			<c:if test="${searchOption eq 'excludeKeyword' and not empty excludeKeyword}">
+			<c:if test="${searchOption eq 'exclude'}">
 				<div style="font-size: 0.7rem;">아래 재료가 제외 된 레시피 입니다.</div>
-				<span id="restore">${excludeKeyword }</span>
+				<span id="restore">${keyword }</span>
 			</c:if>
 		</div>
 	</div>
 	
+	<!-- 한번 더 제외 검색을 했을 경우 띄워지는 문구 -->
 	<div class="keyword">	
-		<c:if test="${not empty excludeKeyword and not empty keyword}">
+		<c:if test="${not empty excludeKeyword}">
 			<div class="include">
 				<div style="font-size: 0.7rem;">아래 재료가 포함된 레시피 입니다.</div>
 				<span id="restore">${keyword }</span>
@@ -33,11 +33,11 @@
 		</c:if>
 	</div>
 
+	<!-- 처음 검색 결과 후 제외하고싶은 재료가 있으면 한번 더 검색하게 해주는 form-->
 	<div class="boardSearch">
-		<c:if test="${searchOption eq 'keyword'}">
-			<form method="POST" action="${cpath }/board/searchList">
+		<c:if test="${searchOption eq 'include'}">
+			<form method="POST" action="${cpath }/board/searchList/${keyword}">
 				 <p>
-				 	<input type="hidden" name="keyword" value="${keyword }">
 					<input type="search" name="excludeKeyword" placeholder="제외할 재료를 입력하세요" autofocus required>
 					<input type="submit" value="제외">
 				</p>

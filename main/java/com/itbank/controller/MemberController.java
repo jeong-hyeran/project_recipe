@@ -132,6 +132,19 @@ public class MemberController {
 		mav.addObject("list", list);
 		return mav;
 	}
+	
+	@GetMapping("/updatePW")
+	public void updatePW() {}
+	
+	@PostMapping("/updatePW")
+	public ModelAndView updatePW(@RequestParam HashMap<String, String> param) {
+		// userid,useremail을 받아와서
+		ModelAndView mav = new ModelAndView("newPW");
+		String newPW = memberService.updatePW(param);
+		// service로 넘겨준다.
+		mav.addObject("newPW", "임시 비밀번호는 ["+ newPW +"] 입니다.");
+		return mav;
+	}
 }
 	
 	

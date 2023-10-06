@@ -48,7 +48,7 @@
 				<td>${dto.member_userid }</td>
 				<td>${dto.wdate }</td>
 				<td>👁️‍🗨️${dto.viewCount }</td>
-				<td>❤️${dto.likeCount}</td>
+				<td>❤️${dto.likeCount }</td>
 			</tr>
 		</c:forEach>
 	</tbody>

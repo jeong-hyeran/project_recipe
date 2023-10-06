@@ -23,11 +23,13 @@
 	<select id="selectAll" resultType="board">
 		select
 		b.*,
-		m.userid as member_userid
+		m.userid as
+		member_userid
 		from board B
 		join member m
 		on m.idx = b.member_idx
-		order by b.idx desc
+		order by
+		b.idx desc
 	</select>
 
 	<select id="maxIdx" resultType="int">
@@ -38,7 +40,8 @@
 	<select id="selectOne" resultType="board">
 		select
 		b.*,
-		m.userid as member_userid,
+		m.userid as
+		member_userid,
 		m.fileName as member_fileName
 		from board B
 		join member m
@@ -49,31 +52,33 @@
 
 	<update id="boardUpdate" parameterType="board">
 		update board
-		set content=#{content}, fileName=#{fileName}, title=#{title}
-		where idx=#{idx}
+		set
+		content=#{content}, fileName=#{fileName}, title=#{title}
+		where
+		idx=#{idx}
 	</update>
 
 	<delete id="boardDelete" parameterType="int">
 		delete board where
 		idx=#{idx}
 	</delete>
-	
-	<!-- 검색 기능 (포함/제외) -->
+
 	<select id="search" resultType="board">
-		<if test="searchOption == 'include'">			<!-- 포함하면 실행하는 부분 -->
-			select 
+		<if test="searchOption == 'include'">	<!-- 포함하면 실행하는 부분 -->
+			select
 			B.*,
 			M.userid as member_userid
 			from board B
 			join member M
-			on M.idx = B.member_idx
+			on M.idx =
+			B.member_idx
 			where
 			<foreach collection="keywords" item="keyword" separator="and">
 				ingr like '%${keyword}%'
 			</foreach>
 			order by B.idx desc
-		</if> 
-		
+		</if>
+
 		<!-- 제외하면 실행하는 부분 -->
 		<if test="searchOption == 'exclude'">
 			select
@@ -81,30 +86,52 @@
 			M.userid as member_userid
 			from board B
 			join member M
-			on M.idx = B.member_idx
-			where 
+			on M.idx
+			= B.member_idx
+			where
 			<foreach collection="keywords" item="keyword" separator="or">
 				ingr not like '%${keyword}%'
 			</foreach>
 			order by B.idx desc
 		</if>
 	</select>
-	
+
+	<select id="excludeSearch" resultType="board">
+		select
+		B.*,
+		M.userid as member_userid
+		from board B
+		join member M
+		on M.idx = B.member_idx
+		where
+		<foreach collection="keywords" item="keyword" separator="and" open="(" close=")">
+			ingr like '%${keyword}%'		
+		</foreach>		
+		and not 
+		<foreach collection="excludeKeywords" item="excludeKeyword" separator="and" open="(" close=")">
+			ingr like '%${excludeKeyword}%'		
+		</foreach>
+		order by B.idx desc
+	</select>
+
 	<update id="viewCount" parameterType="int">
 		update board
-		set viewCount = viewCount + 1 where idx = #{idx}
+		set viewCount =
+		viewCount + 1 where idx = #{idx}
 	</update>
 
 	<select id="selectBoardLike" parameterType="boardLike"
 		resultType="boardLike">
 		select * from board_like
-		where board_idx=#{board_idx} and member_userid=#{member_userid}
+		where board_idx=#{board_idx} and
+		member_userid=#{member_userid}
 	</select>
 
 	<insert id="insertBoardLike" parameterType="boardLike">
 		insert into
 		board_like(board_idx, member_userid)
-		values(#{board_idx}, #{member_userid})
+		values(#{board_idx},
+		#{member_userid})
 	</insert>
 
 	<select id="selectboardLikeByIdx" parameterType="int"
