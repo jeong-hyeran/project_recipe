@@ -216,6 +216,12 @@
    .heart-icon {
       color: red; 
    }
+   .flex {
+   	display: flex;
+   	margin: 0 20px;
+	justify-content: space-around;
+   }
+   
 </style>
 </head>
 <body>

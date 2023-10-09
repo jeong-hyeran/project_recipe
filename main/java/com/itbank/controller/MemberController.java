@@ -3,6 +3,9 @@ package com.itbank.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +41,33 @@ public class MemberController {
 	public void login() {}
 	
 	@PostMapping("/login")
-	public ModelAndView login(MemberDTO dto, HttpSession session) {
-		ModelAndView mav = new ModelAndView("msg");
+	public ModelAndView login(MemberDTO dto, HttpSession session, 
+			HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("redirect:/");
 		MemberDTO login = memberService.selectOneById(dto);
-		if (login != null) {
-			session.setAttribute("login", login);
-			mav.setViewName("redirect:/");
+		String storedId = request.getParameter("storedId");
+		
+		if(login == null) {
+			mav.addObject("msg", "일치하는 회원 정보가 없습니다.");
+			mav.setViewName("msg");
 			return mav;
 		}
-		mav.addObject("msg", "일치하는 회원 정보가 없습니다.");
-		return mav;
+		session.setAttribute("login", login);
+		
+		// storedId 체크박스가 체크되어 있으면 'on'
+		// 그렇지 않으면 null
+		// null이 아닐 경우 쿠키를 생성하고
+		if(storedId != null) {
+			Cookie  c = new Cookie("storedId", login.getUserid());
+			c.setMaxAge(300);
+			response.addCookie(c);		
+		}
+		else {		// 체크 해제가 되면 쿠키 삭제
+			Cookie  c = new Cookie("storedId", login.getUserid());
+			c.setMaxAge(0);
+			response.addCookie(c);	
+		}
+		return mav;				
 	}
 	
 	@GetMapping("/logout")
